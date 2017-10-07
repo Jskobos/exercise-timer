@@ -1,5 +1,5 @@
 <template>
-  <div>{{count}}</div>
+  <div>{{timeElapsed}}</div>
 </template>
 
 <script>
@@ -13,6 +13,7 @@ export default {
   data () {
     return {
       completed: 0
+      timeElapsed: ''
     }
   },
   methods: {
@@ -21,15 +22,15 @@ export default {
     },
     startTimer: function () {
       timer.start()
+      timer.addEventListener('secondsUpdated', function(e) {
+        this.timeElapsed = timer.getTimeValues().toString()
+      })
     }
   },
   computed: {
     remaining: function () {
       return this.count - this.completed
     }
-  },
-  mounted () {
-    console.log(true)
   }
 
 }
