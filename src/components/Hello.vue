@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="main-view">
-        <timer :count=total_reps :seconds=seconds :stop=stop />
+        <timer :count=total_reps :duration=duration :stop=stop />
       </div>
     </div>
 </template>
@@ -13,6 +13,7 @@ import {
 } from 'quasar'
 
 import Timer from './Timer.vue'
+import moment from 'moment'
 
 export default {
   name: 'index',
@@ -24,7 +25,7 @@ export default {
   data () {
     return {
       total_reps: 20,
-      seconds: 60,
+      duration: moment.duration(1, 'minutes'),
       stop: false
     }
   }
@@ -38,5 +39,7 @@ export default {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background: black;
+    color: white;
   }
 </style>

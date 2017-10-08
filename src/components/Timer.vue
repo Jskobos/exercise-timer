@@ -1,7 +1,7 @@
 <template>
   <div class="timer-box">
-    <div>{{second}}:{{tenth}}</div>
-    <div>{{remaining}}</div>
+    <div class="rep-count">{{remainingReps}}</div>
+    <div class="time-count">{{remainingTime.second()}}</div>
     <q-btn glossy color="primary" @click="reset()">
       Reset
     </q-btn>
@@ -16,20 +16,20 @@ import moment from 'moment'
 
 export default {
   name: 'timer',
-  props: ['count', 'seconds', 'stop'],
+  props: ['count', 'duration', 'stop'],
   components: { QBtn },
   data () {
     return {
       completed: 0,
       timeElapsed: moment(0),
       start: moment(),
-      timePerRep: (this.seconds / this.count) * 1000
+      timePerRep: (this.duration.asMilliseconds() / this.count)
     }
   },
   methods: {
     tick: function () {
       this.timeElapsed = moment(moment() - this.start)
-      if (this.second > this.seconds) {
+      if (this.timeElapsed > this.duration) {
         this.complete()
       }
     },
@@ -46,7 +46,6 @@ export default {
       this.timeElapsed = moment(0)
     },
     reset: function () {
-      console.log('resetting')
       this.completed = 0
       this.start = moment()
       clearInterval(this.timer)
@@ -56,14 +55,11 @@ export default {
     }
   },
   computed: {
-    remaining: function () {
+    remainingReps: function () {
       return this.count - this.completed
     },
-    second: function () {
-      return this.timeElapsed.second()
-    },
-    tenth: function () {
-      return Math.floor(this.timeElapsed.millisecond() / 100)
+    remainingTime: function () {
+      return moment(this.duration - this.timeElapsed)
     }
   },
   mounted () {
@@ -73,12 +69,28 @@ export default {
     clearInterval(this.timer)
     clearInterval(this.repCount)
   }
-
 }
 </script>
 
 <style scoped>
   .timer-box {
-    
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .rep-count {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    font-size: 8em;
+    border: solid 12px rgba(26, 184, 237, 0.45);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .time-count {
+    padding: 0.5em;
+    font-size: 4em;
   }
 </style>
