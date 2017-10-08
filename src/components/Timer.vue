@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="timer-box">
     <div>{{second}}:{{tenth}}</div>
     <div>{{remaining}}</div>
-    <q-btn glossy color="primary" @click="reset">
+    <q-btn glossy color="primary" @click="reset()">
       Reset
     </q-btn>
   </div>
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     tick: function () {
-      this.timeElapsed = moment().subtract(this.start)
+      this.timeElapsed = moment(moment() - this.start)
       if (this.second > this.seconds) {
         this.complete()
       }
@@ -77,5 +77,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .timer-box {
+    
+  }
 </style>
