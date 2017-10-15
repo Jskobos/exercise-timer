@@ -1,6 +1,6 @@
 <template>
   <div class="timer-box">
-    <div class="rep-count">{{remainingReps}}</div>
+    <div class="rep-count">{{completed}} / {{count}}</div>
     <div class="time-count">{{remainingTime.second()}}</div>
     <q-btn glossy color="primary" @click="reset()">
       Reset
@@ -80,10 +80,10 @@ export default {
     justify-content: center;
   }
   .rep-count {
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     border-radius: 50%;
-    font-size: 8em;
+    font-size: 6em;
     border: solid 12px rgba(26, 184, 237, 0.45);
     display:flex;
     justify-content: center;
