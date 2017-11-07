@@ -20,7 +20,7 @@ export default {
   components: { QBtn },
   data () {
     return {
-      completed: 0,
+      completed: 1,
       timeElapsed: moment(0),
       start: moment(),
       timePerRep: (this.duration.asMilliseconds() / this.count)
@@ -46,7 +46,7 @@ export default {
       this.timeElapsed = moment(0)
     },
     reset: function () {
-      this.completed = 0
+      this.completed = 1
       this.start = moment()
       clearInterval(this.timer)
       clearInterval(this.repCount)
